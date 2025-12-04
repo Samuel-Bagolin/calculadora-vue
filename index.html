@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Aritmética - Vue.js</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="calculator-container">
+            <header>
+                <h1><i class="fas fa-calculator"></i> Calculadora Aritmética</h1>
+                <p class="subtitle">Altere os valores e veja o resultado automaticamente</p>
+            </header>
+
+            <main>
+                <div class="calculator">
+                    <div class="input-group">
+                        <label for="numero1">
+                            <i class="fas fa-hashtag"></i> Primeiro Número
+                        </label>
+                        <input 
+                            type="number" 
+                            id="numero1" 
+                            v-model="numero1" 
+                            placeholder="Digite um número"
+                            step="any"
+                        >
+                    </div>
+
+                    <div class="operation-selector">
+                        <label for="operacao">
+                            <i class="fas fa-cogs"></i> Operação
+                        </label>
+                        <select id="operacao" v-model="operacao">
+                            <option value="soma">Adição (+)</option>
+                            <option value="subtracao">Subtração (-)</option>
+                            <option value="multiplicacao">Multiplicação (×)</option>
+                            <option value="divisao">Divisão (÷)</option>
+                            <option value="potencia">Potência (^)</option>
+                            <option value="resto">Resto da Divisão (%)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="numero2">
+                            <i class="fas fa-hashtag"></i> Segundo Número
+                        </label>
+                        <input 
+                            type="number" 
+                            id="numero2" 
+                            v-model="numero2" 
+                            placeholder="Digite outro número"
+                            step="any"
+                        >
+                    </div>
+
+                    <div class="result-display">
+                        <h3><i class="fas fa-equals"></i> Resultado</h3>
+                        <div class="result" :class="resultClass">
+                            {{ resultadoFormatado }}
+                        </div>
+                        <div class="operation-display">
+                            {{ expressaoCalculo }}
+                        </div>
+                    </div>
+
+                    <div class="history" v-if="historico.length > 0">
+                        <h3><i class="fas fa-history"></i> Histórico</h3>
+                        <ul>
+                            <li v-for="(item, index) in historico" :key="index">
+                                {{ item.expressao }} = <strong>{{ item.resultado }}</strong>
+                            </li>
+                        </ul>
+                        <button @click="limparHistorico" class="btn-clear">
+                            <i class="fas fa-trash"></i> Limpar Histórico
+                        </button>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Como usar</h3>
+                    <ul>
+                        <li>Digite valores nos campos "Primeiro Número" e "Segundo Número"</li>
+                        <li>Selecione a operação desejada no menu suspenso</li>
+                        <li>O resultado será calculado automaticamente</li>
+                        <li>Cada cálculo será armazenado no histórico</li>
+                    </ul>
+                </div>
+            </main>
+
+            <footer>
+                <p>Calculadora Aritmética com Vue.js - Desenvolvido para teste técnico</p>
+                <p class="github-link">
+                    <i class="fab fa-github"></i> 
+                    <a :href="repoUrl" target="_blank">Ver repositório no GitHub</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
